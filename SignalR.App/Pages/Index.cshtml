@@ -1,0 +1,38 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SignalR.App</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SignalR.App.styles.css" asp-append-version="true" />
+
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="w-25 mx-auto">
+    <div class="form-group">
+        <label for="txtUserName">User Name</label>
+        <input type="text" class="form-control" id="txtUserName" value="admin" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+        <label for="txtPassword">Password</label>
+        <input type="password" class="form-control" id="txtPassword" value="admin">
+    </div>
+
+    <button class="btn btn-primary mt-3" id="btnLogin" onclick="btnClick()">Login</button>
+
+</div>
+<span class="mt-5 text-danger"></span>
+
+

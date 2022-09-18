@@ -1,0 +1,56 @@
+﻿@page
+@model SignalR.App.Pages.carsModel
+@{
+}
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>@ViewData["Title"] - SignalR.App</title>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/SignalR.App.styles.css" asp-append-version="true" />
+
+<script type="text/javascript">
+    
+
+        //document.getElementById("btnLogin")
+
+</script>
+
+<button class="btn btn-primary" onclick="loadCars()">Araç Listesi</button>
+
+<br />
+<br />
+<table class="table" id="tblCars">
+    <thead>
+        <tr>
+            <td>Car</td>
+            <td>Left Door</td>
+            <td>Right Door</td>
+            <td>Invert Door</td>
+            <td>Invert Door</td>
+            <td>Buy</td>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+<span id="lblStatus" class="mt-5 text-danger"></span>
+<br />
+<br />
+<button class="btn btn-primary" onclick="listPurchases()">Satış Listesi</button>
+
+<table class="table" id="tblPurchases">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Date</td>
+            <td>Car</td>
+
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>

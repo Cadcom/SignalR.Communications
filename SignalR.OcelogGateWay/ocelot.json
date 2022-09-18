@@ -1,0 +1,34 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "wss",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 2000
+        }
+      ],
+      "UpstreamPathTemplate": "/api/gateway/hub/{catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+      
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auths/Login/{userName}/{password}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 1000
+        }
+      ],
+      "UpstreamPathTemplate": "/api/gateway/Auths/Login/{userName}/{password}",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:4000"
+  }
+}
