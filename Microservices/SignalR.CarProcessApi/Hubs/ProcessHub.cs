@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SignalR.Business.Abstract;
 using SignalR.Shared.Entities;
 using SignalR.Shared.Models;
 using System.Text.Json;
+using TableDependency.SqlClient;
+using TableDependency.SqlClient.Base.EventArgs;
 
 namespace SignalR.CarProcessApi.Hubs
 {
@@ -11,11 +14,26 @@ namespace SignalR.CarProcessApi.Hubs
     public class ProcessHub: Hub
     {
         private readonly IDatabaseService service;
+        IConfiguration configuration;
+        //IDatabaseSubscription databaseSubscription;
 
-        public ProcessHub(IDatabaseService service)
+        public ProcessHub(IDatabaseService service, IConfiguration configuration)
         {
             this.service = service;
+            //this.databaseSubscription = databaseSubscription;
+            //this.databaseSubscription.databaseRefreshed += (o,e)=> sendMessage2Client("databaseRefreshed", "ok");
+
+
         }
+
+        private async void SqlTable_OnChanged(object sender, RecordChangedEventArgs<Car> e)
+        {
+            await sendMessage2Client("databaseRefreshed", "ok");
+        }
+
+        //~ProcessHub() => 
+        //    _tableDependency.Stop();
+
         public override async Task OnConnectedAsync()
         {
             Console.WriteLine(Context.ConnectionId);
@@ -28,7 +46,7 @@ namespace SignalR.CarProcessApi.Hubs
             await base.OnDisconnectedAsync(ex);
         }
 
-        async Task sendMessage2Client(string function, string message)
+        public async Task sendMessage2Client(string function, string message)
         {
             await Clients.Caller.SendAsync(function, message);
         }

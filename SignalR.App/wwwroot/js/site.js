@@ -37,6 +37,12 @@ $(document).ready(() => {
             tableGanerator(JSON.parse(data));
     });
 
+    connection.on("databaseRefreshed", function (data) {
+        if (data == "ok")
+            loadCars();
+        document.getElementById("lblStatus").innerHTML = 'Car status updated!';
+    });
+
     
     function tableGanerator(data) {
         var table = document.querySelector("#tblCars tbody");
@@ -46,8 +52,8 @@ $(document).ready(() => {
         data.forEach(function (rowData) { // For each row
             var row = '<tr>';
             row += `<td>${rowData.CarType}</td>`;           
-            row += `<td><input type="checkbox" ${rowData.isLeftDoorOpen ? "checked" : ""}</input></td>`;
-            row += `<td><input type="checkbox" ${rowData.isRightDoorOpen ? "checked" : ""}</input></td>`;
+            row += `<td><input type="checkbox" ${rowData.isLeftDoorOpen ? "checked" : ""}></td>`;
+            row += `<td><input type="checkbox" ${rowData.isRightDoorOpen ? "checked" : ""}></td>`;
             row += `<td><button class="btn btn-secondary" onclick="curRow=${index};updateCar(${rowData.ID},'left')">left Door</button></td>`;
             row += `<td><button class="btn btn-secondary" onclick="curRow=${index};updateCar(${rowData.ID},'right')">Right Door</button></td>`;
             row += `<td><button class="btn btn-secondary" onclick="curRow=${index};purchaseCar(${rowData.ID})">Purchase</button></td>`;
@@ -59,7 +65,10 @@ $(document).ready(() => {
     }
 
 
-    
+    connection.on("purchaseList", function (data) {
+        if (data != null)
+            purchaseTableGanerator(JSON.parse(data));
+    });
 
     connection.on("carUpdated", function (data) {
         if (data != null) {
@@ -84,10 +93,7 @@ $(document).ready(() => {
 
     });
 
-    connection.on("purchaseList", function (data) {
-        if (data != null)
-            purchaseTableGanerator(JSON.parse(data));
-    });
+    
 
 });
 

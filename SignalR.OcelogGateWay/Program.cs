@@ -14,13 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("ocelot.json");
 
 // Add services to the container.
-builder.Services.AddDbContext<appContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration["myConnectionString"], b => b.MigrationsAssembly("SignalR.Data"));
-});
-builder.Services.AddScoped<DbContext>(provider => provider.GetService<appContext>());
-builder.Services.AddTransient<IDatabaseHelper, DatabaseHelper>();
-builder.Services.AddTransient<IDatabaseService, DatabaseService>();
+//builder.Services.AddDbContext<appContext>(options =>
+//{
+//    options.UseSqlServer(builder.Configuration["myConnectionString"], b => b.MigrationsAssembly("SignalR.Data"));
+//});
+//builder.Services.AddScoped<DbContext>(provider => provider.GetService<appContext>());
+//builder.Services.AddTransient<IDatabaseHelper, DatabaseHelper>();
+//builder.Services.AddTransient<IDatabaseService, DatabaseService>();
+
 
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(policiy => 

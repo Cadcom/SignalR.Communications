@@ -7,16 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignalR.Data.Abstract;
+using System.Reflection;
 
 namespace SignalR.Business.Concrete
 {
     public class DatabaseService : IDatabaseService
     {
         IDatabaseHelper databaseHelper;
+        //IDatabaseSubscription databaseSubscription;
+        //public event EventHandler<DatabaseUpdatedEventArgs> databaseRefreshed;
+
         public DatabaseService(IDatabaseHelper databaseHelper)
         {
             this.databaseHelper = databaseHelper;
+            //this.databaseSubscription = databaseSubscription;
+            //this.databaseSubscription.databaseRefreshed += (o,e) => databaseRefreshed.Invoke(o, e); ;
         }
+
+        
 
         public int addCarPurchase(int CarID)
         {
@@ -40,5 +48,7 @@ namespace SignalR.Business.Concrete
             var result = databaseHelper.updateCarStatus(status);
             return result;
         }
+
+
     }
 }

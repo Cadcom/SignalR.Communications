@@ -7,9 +7,14 @@ using Microsoft.IdentityModel.Tokens;
 using SignalR.Business.Abstract;
 using SignalR.Business.Concrete;
 using SignalR.CarProcessApi.Hubs;
+using SignalR.CarProcessApi.Middelwares;
+using SignalR.CarProcessApi.Subscriptions;
 using SignalR.Data;
 using SignalR.Data.Abstract;
 using SignalR.Data.Concrate;
+
+using SignalR.Shared.Entities;
+using System.Globalization;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,14 +26,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<DatabaseSubscription<Car>>();
 builder.Services.AddDbContext<appContext>(options =>
 {
     options.UseSqlServer(builder.Configuration["myConnectionString"], b => b.MigrationsAssembly("SignalR.Data"));
 });
+
 builder.Services.AddScoped<DbContext>(provider => provider.GetService<appContext>());
 
+
 builder.Services.AddScoped<IDatabaseHelper, DatabaseHelper>();
+
 builder.Services.AddScoped<IDatabaseService, DatabaseService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -56,7 +67,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policiy =>
             )
 );
 
-builder.Services.AddSignalR();
+
 
 var app = builder.Build();
 
@@ -69,6 +80,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseDatabaseSubscription<DatabaseSubscription<Car>>("Cars");
 
 
 app.UseAuthentication();

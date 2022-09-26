@@ -14,5 +14,6 @@ namespace SignalR.Business.Abstract
         public int addCarPurchase(int CarID);
         public List<PurchaseList> listCarPurchases();
         public List<Car> listCars();
+        //public event EventHandler<DatabaseUpdatedEventArgs> databaseRefreshed;
     }
 }

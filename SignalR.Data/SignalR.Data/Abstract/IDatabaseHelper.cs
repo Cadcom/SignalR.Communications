@@ -1,4 +1,5 @@
-﻿using SignalR.Shared.Entities;
+﻿using Microsoft.Data.SqlClient;
+using SignalR.Shared.Entities;
 using SignalR.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,6 @@ namespace SignalR.Data.Abstract
         public int addCarPurchase(int CarID);
         public List<PurchaseList> listCarPurchases();
         public List<Car> listCars();
-
+        //public event EventHandler<DatabaseUpdatedEventArgs> databaseRefreshed;
     }
 }
